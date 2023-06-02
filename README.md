@@ -2,8 +2,10 @@
 
 - [x] classify dogs
 - [x] load data data api
-- [] visualize dogs in grid
-- [] filter dogs by category
+- [x] visualize dogs in grid
+- [x] filter dogs by category
+- [x] enlarge dog on click
+- [x] fetch other dogs button
 
 <https://dog.ceo/api/breeds/image/random/{number> of images}
 
