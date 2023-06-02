@@ -14,7 +14,7 @@ export const dogsTypes = {
 export const fetchDoggos = async (dogType) => {
 	return await Promise.all(
 		dogType.map(async (dog) => {
-			let response = await fetch(`${DOG_API_URL}/breed/${dog}/images/random/5`);
+			let response = await fetch(`${DOG_API_URL}/breed/${dog}/images/random/1`);
 			let data = await response.json();
 			return data.message;
 		})
