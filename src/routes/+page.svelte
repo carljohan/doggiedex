@@ -7,7 +7,6 @@
 	const annoyingDogs = ['chihuahua', 'terrier/russell', 'pitbull'];
 	const familyDogs = ['labrador', 'retriever/golden', 'newfoundland'];
   
-	console.log(data.cute);
 
   $: visibleDogs = data.all;
 
@@ -18,9 +17,6 @@
   // sort the array in random order
   data.all.sort(() => Math.random() - 0.5);
 
-// get breed name from url
-  // "https://images.dog.ceo/breeds/pomeranian/n02112018_13581.jpg"
-  
   /**
  * Change the active filter
  * @param {string} url
@@ -47,8 +43,7 @@
   
 
 
-  const getNewDogs = async (dogType) => {
-    console.log(dogType)
+const getNewDogs = async (dogType) => {
     if(dogType === 'cute') {
       return visibleDogs = await fetchDoggos(cuteDogs).then((data) => data.flat());
     }
@@ -58,9 +53,12 @@
     if(dogType === 'family') {
       return visibleDogs =  await fetchDoggos(familyDogs).then((data) => data.flat());
     }
-
 }
 
+
+// This code is a function that fetches images of dogs based on their breed.
+// It returns a promise that resolves to an array of arrays containing the images
+// of the dogs. The input is an array of strings of the dog breeds.
 
 const fetchDoggos = async (dogType) => {
   return await Promise.all(
@@ -71,17 +69,16 @@ const fetchDoggos = async (dogType) => {
     })
   );
 }
-
 </script>
 
 <div class="container">
 	<h1 class="header">DoggieDex!</h1>
 
 	<section class="nav">
-		<button class="button" class:activeFilter on:click={()=> changeFilter('all')}>All</button>
-		<button class="button" on:click={()=> changeFilter('cute')}>Cute</button>
-		<button class="button" on:click={()=> changeFilter('annoying')}>Annoying</button>
-		<button class="button"on:click={()=> changeFilter('family')}>Family</button>
+		<button class="button" class:active={activeFilter === 'all'} on:click={()=> changeFilter('all')}>All</button>
+		<button class="button"class:active={activeFilter === 'cute'}  on:click={()=> changeFilter('cute')}>Cute</button>
+		<button class="button" class:active={activeFilter === 'annoying'} on:click={()=> changeFilter('annoying')}>Annoying</button>
+		<button class="button" class:active={activeFilter === 'family'} on:click={()=> changeFilter('family')}>Family</button>
 	</section>
 	<section class="list">
 		{#each visibleDogs as dogs}
@@ -103,11 +100,13 @@ const fetchDoggos = async (dogType) => {
 <style>
 	.container {
 		font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-		height: 100vh;
 		width: 100vw;
 		background-image: url('/images/dogs_and_bones.jpg');
+    background-repeat: repeat;
+    background-size: 250px;
 	}
 	.header {
+    margin: 0;
 		display: flex;
 		font-size: 3rem;
 		justify-content: center;
@@ -120,7 +119,7 @@ const fetchDoggos = async (dogType) => {
 	}
 	.button {
 		border: 0;
-		background-color: transparent;
+		background-color: white;
 		cursor: pointer;
 		font-size: 1rem;
 	}
@@ -131,14 +130,22 @@ const fetchDoggos = async (dogType) => {
 		justify-content: center;
 		flex-wrap: wrap;
 	}
+
+  .active {
+    font-weight: 900;
+    background-color: orange;
+    color: white;
+  }
 	.dog-image {
 		width: 250px;
 		height: 250px;
 		object-fit: cover;
     border-radius: 30px;
+    cursor: pointer;
 	}
   .dog-image:hover {
-    transform: scale(1.2);
+    transform: scale(1.05);
+    transition: all 0.5 ease-in-out;
   }
     .footer {
         padding: 100px;
@@ -146,6 +153,7 @@ const fetchDoggos = async (dogType) => {
         justify-content: center;
     }
     .reload-button {
+        background-color: white;
         font-size: 2rem;
         margin-top: 50px;
     }
@@ -163,7 +171,7 @@ const fetchDoggos = async (dogType) => {
 
     }
     button:hover {
-        background-color: pink;
+        background-color: orange;
         color: white;
         transition: all .2s ease-in-out;
     }
