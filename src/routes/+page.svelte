@@ -52,7 +52,7 @@
 	};
 </script>
 
-<div class="container">
+<main class="container">
 	<h1 class="header">DoggieDex!</h1>
 
 	<section class="nav">
@@ -99,6 +99,7 @@
 			</div>
 		{/each}
 	</section>
+
 	<div class="reload">
 		{#if activeFilter !== 'all'}
 			<button
@@ -108,8 +109,10 @@
 			>
 		{/if}
 	</div>
+
 	<section class="footer">created with ❤️ in Visby 2023</section>
-</div>
+
+</main>
 
 <style>
 	:global(body) {
@@ -121,6 +124,7 @@
 		background-image: url('/images/dogs_and_bones.jpg');
 		background-repeat: repeat;
 		background-size: 250px;
+		min-height: 100vh;
 	}
 	.header {
 		margin: 0;

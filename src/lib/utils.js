@@ -8,15 +8,10 @@ export const dogsTypes = {
 
 /**
  * Fetches dog images for the given dog types.
- * @param {string[]} dogType - An array of dog types to fetch images for.
+ * @param {string[]} dogTypes - An array of dog types to fetch images for.
  * @returns {Promise<string[]>} A promise that resolves to an array of image URLs.
  */
-export const fetchDoggos = async (dogType) => {
-	return await Promise.all(
-		dogType.map(async (dog) => {
-			let response = await fetch(`${DOG_API_URL}/breed/${dog}/images/random/1`);
-			let data = await response.json();
-			return data.message;
-		})
-	);
+export const fetchDoggos = async (dogTypes) => {
+	const responses = await Promise.all(dogTypes.map(dogType => fetch(`${DOG_API_URL}/breed/${dogType}/images/random/1`)));
+	return Promise.all(responses.map(response => response.json().then(data => data.message))).then((data) => data.flat());
 };
